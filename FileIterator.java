@@ -1,11 +1,13 @@
-class FileIterator {
-	FileComponents fp;
-
-	public FileIterator(FileComponents newfplist) {
-		fp = newfplist;
+public class FileIterator{
+	
+	FileSystem fileList;
+	
+	public FileIterator(FileSystem newFileList){
+		fileList = newFileList;
 	}
-
-	public displayFiles() {
-		fp.getDirectoryName();
+	
+	public void getFileList(){	
+		fileList.displayFileInfo();
 	}
+	
 }

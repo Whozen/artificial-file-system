@@ -1,14 +1,6 @@
 import java.util.Scanner; 
 
 public class FileListGenerator {
-
-	// public boolean isFile( String file ) {
-	// 	if( file.contains(".txt") ) {
-	// 		return true;
-	// 	} else {
-	// 		return false;
-	// 	}
-	// }
 	
 	public static void main(String[] args){
 		int x = 0;
@@ -18,8 +10,8 @@ public class FileListGenerator {
 		FileSystem subDir;
 		FileSystem subFile;
 		FileSystem rootDir = mainDir;
-		FileJockey showAll = new FileJockey(mainDir);
-		FileJockey tempShowAll;
+		FileIterator showAll = new FileIterator(mainDir);
+		FileIterator tempShowAll;
 
 		FileSystem[] path = new FileSystem[10];
 		path[0] = mainDir;
@@ -27,7 +19,7 @@ public class FileListGenerator {
 		//String parentName;
 
 		while( x == 0 ) {
-			Scanner sc = new Scanner(System.in);    //System.in is a standard input stream  
+			Scanner sc = new Scanner(System.in);
 			System.out.print("Enter Command: ");  
 			String ip = sc.nextLine();
 			System.out.print("\n \n");  
@@ -47,12 +39,12 @@ public class FileListGenerator {
 					if( cmd_arr[1].equals("..") ) {
 						path[pathPointer] = null;
 						mainDir = path[--pathPointer];
-						showAll = new FileJockey(mainDir);
+						showAll = new FileIterator(mainDir);
 						System.out.println("Directory Changed to " + mainDir.getName() + "\n");
 					} else {
 						subDir = mainDir.getFileSystem(cmd_arr[1]);
 						mainDir = subDir;
-						showAll = new FileJockey(mainDir);
+						showAll = new FileIterator(mainDir);
 						path[++pathPointer] = mainDir;
 						System.out.println("Directory Changed to " + cmd_arr[1] + '\n');
 					}
@@ -93,7 +85,7 @@ public class FileListGenerator {
 						System.out.println( subFile.getSize() );
 					} else if( cmd_arr.length == 2 ) {
 						subDir = rootDir.getFileSystem(cmd_arr[1]);
-						tempShowAll = new FileJockey(subDir);
+						tempShowAll = new FileIterator(subDir);
 						tempShowAll.getFileList();
 					} else {
 						showAll.getFileList();
