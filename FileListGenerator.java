@@ -13,8 +13,10 @@ public class FileListGenerator {
 		FileIterator showAll = new FileIterator(mainDir);
 		FileIterator tempShowAll;
 
-		FileSystem[] path = new FileSystem[10];
-		path[0] = mainDir;
+		private ArrayList<FileSystem> myPath = new ArrayList<FileSystem>();
+		// FileSystem[] path = new FileSystem[10];
+		// path[0] = mainDir;
+		myPath.add(mainDir);
 		int pathPointer = 0;
 		//String parentName;
 
@@ -38,8 +40,11 @@ public class FileListGenerator {
 
 				case "cd":
 					if( cmd_arr[1].equals("..") ) {
-						path[pathPointer] = null;
-						mainDir = path[--pathPointer];
+						// path[pathPointer] = null;
+						// mainDir = path[--pathPointer];
+						myPath.remove(pathPointer);
+						pathPointer--;
+						mainDir = myPath.get(pathPointer);
 						showAll = new FileIterator(mainDir);
 						System.out.println("Directory Changed to " + mainDir.getName() + "\n");
 					} else {
@@ -47,7 +52,9 @@ public class FileListGenerator {
 						    subDir = mainDir.getFileSystem(cmd_arr[1]);
 							mainDir = subDir;
 							showAll = new FileIterator(mainDir);
-							path[++pathPointer] = mainDir;
+							//path[++pathPointer] = mainDir;
+							this.pathPointer++;
+							this.myPath.add(this.mainDir);
 							System.out.println("Directory Changed to " + cmd_arr[1] + '\n');
 						} catch (UnsupportedOperationException e) {
 						    System.out.println( cmd_arr[1] + " not found.\n" );

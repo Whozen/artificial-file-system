@@ -29,14 +29,14 @@ public class FileBuilder implements FileBuilderFactory {
     //Create directory in the current directory
     public void mkdir(String dirName) {
         this.mainDir.add( new Directories(dirName) );
-        System.out.println( dirName + " Directory created\n" );
+        System.out.println( "Mkdir: " + dirName + " Directory created\n" );
     } 
 
 
     //Create a new file in the current directory
     public void create(String fileName, int fileSize) {
         this.mainDir.add( new File(fileName, fileSize ) );
-        System.out.println( fileName + " file created\n" );
+        System.out.println( "Create: " + fileName + " file created\n" );
     } 
     
 
@@ -45,9 +45,9 @@ public class FileBuilder implements FileBuilderFactory {
         try {
             this.subFile = this.mainDir.getFileSystem(fileName);
             this.mainDir.remove(this.subFile);
-            System.out.println( fileName + " has successfully been removed.\n" );
+            System.out.println( "Del: " + fileName + " has successfully been removed.\n" );
         } catch (UnsupportedOperationException e) {
-            System.out.println( fileName + " not found.\n" );
+            System.out.println( "Del:" + fileName + " not found.\n" );
         }
 
         // if( fileName.contains(".txt") ) {
@@ -76,7 +76,7 @@ public class FileBuilder implements FileBuilderFactory {
             this.subDir = this.mainDir.getFileSystem(fileName);
             this.subDir.printSize();
         } catch (UnsupportedOperationException e) {
-            System.out.println( fileName + " not found.\n" );
+            System.out.println( "Size: " + fileName + " not found.\n" );
         }
 
 
@@ -107,7 +107,7 @@ public class FileBuilder implements FileBuilderFactory {
             this.pathPointer--;
             this.mainDir = this.myPath.get(this.pathPointer);
             this.showAll = new FileIterator(this.mainDir);
-            System.out.println("Directory Changed to " + this.mainDir.getName() + "\n");
+            System.out.println("Cd: Directory Changed to " + this.mainDir.getName() + "\n");
         } else {
             this.subDir = this.mainDir.getFileSystem(fileName);
             this.mainDir = this.subDir;
@@ -115,7 +115,7 @@ public class FileBuilder implements FileBuilderFactory {
             //this.path[++this.pathPointer] = this.mainDir;
             this.pathPointer++;
             this.myPath.add(this.mainDir);
-            System.out.println("Directory Changed to " + fileName + '\n');
+            System.out.println("Cd: Directory Changed to " + fileName + '\n');
         }
         System.out.println( "Current Path:" );
         for (int i = 0; i < myPath.size(); i++) {
@@ -131,9 +131,6 @@ public class FileBuilder implements FileBuilderFactory {
         for (int i = 0; i < myPath.size(); i++) {
             System.out.print( myPath.get(i).getName() + "/" );
         }
-        // for (FileSystem val : myPath) { 
-        //     System.out.print( val.getName() + "/" );
-        // }
         System.out.println("\n");
 
         if( fileName != null ) {
