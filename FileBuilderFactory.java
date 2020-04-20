@@ -8,8 +8,6 @@ public interface FileBuilderFactory
   
     public void cd(String fileName); 
   
-    //public void rmdir(String fileName); 
-  
     public void del(String fileName); 
 
     public void size(String fileName);

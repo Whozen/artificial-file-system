@@ -2,18 +2,23 @@ class ScriptOne {
 
     // Old non singleton code
     // private FileBuilderFactory fileBuilder; 
-  
     // public ScriptOne(FileBuilderFactory fileBuilder) 
     // { 
     //     this.fileBuilder = fileBuilder; 
     // } 
     
+
+    //Get instance of ScriptOne class
     private static ScriptOne instance = new ScriptOne();
     
+
+    //Declate a FileBuilderFactory object
     private static FileBuilderFactory fileBuilder;
+
     
     //Cannot be initialized
     private ScriptOne(){}
+
 
     //Get the only object available
     public static ScriptOne getInstance(FileBuilderFactory fb){
@@ -21,7 +26,8 @@ class ScriptOne {
         return instance;
     }
 
-  
+    
+    //Run the script1 commands
     public void runScriptOne() 
     {
         this.fileBuilder.mkdir("App");

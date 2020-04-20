@@ -6,6 +6,7 @@ public class FileIterator{
 		fileList = newFileList;
 	}
 	
+	//Display all the files in the fileList
 	public void getFileList(){	
 		fileList.displayFileInfo();
 	}

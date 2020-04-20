@@ -6,7 +6,7 @@ public class FileListGenerator {
 		int x = 0;
 
 		// Top level component that holds everything
-		FileSystem mainDir = new Directories("Main");
+		FileSystem mainDir = new Directories("Root");
 		FileSystem subDir;
 		FileSystem subFile;
 		FileSystem rootDir = mainDir;
@@ -33,6 +33,7 @@ public class FileListGenerator {
 
 				case "create":
 					mainDir.add(new File(cmd_arr[1], Integer.parseInt(cmd_arr[2]) ) );
+					System.out.println( cmd_arr[1] + " File created\n" );
 					break;
 
 				case "cd":
@@ -42,25 +43,40 @@ public class FileListGenerator {
 						showAll = new FileIterator(mainDir);
 						System.out.println("Directory Changed to " + mainDir.getName() + "\n");
 					} else {
-						subDir = mainDir.getFileSystem(cmd_arr[1]);
-						mainDir = subDir;
-						showAll = new FileIterator(mainDir);
-						path[++pathPointer] = mainDir;
-						System.out.println("Directory Changed to " + cmd_arr[1] + '\n');
+						try {
+						    subDir = mainDir.getFileSystem(cmd_arr[1]);
+							mainDir = subDir;
+							showAll = new FileIterator(mainDir);
+							path[++pathPointer] = mainDir;
+							System.out.println("Directory Changed to " + cmd_arr[1] + '\n');
+						} catch (UnsupportedOperationException e) {
+						    System.out.println( cmd_arr[1] + " not found.\n" );
+						}
 					}
 
 				    break;
 
 				case "rmdir":
-					subDir = mainDir.getFileSystem(cmd_arr[1]);
-					mainDir.remove(subDir);
+					try {
+					    subDir = mainDir.getFileSystem(cmd_arr[1]);
+						mainDir.remove(subDir);
 
-				    System.out.println( cmd_arr[1] + " Directory removed\n" );
+					    System.out.println( cmd_arr[1] + " Directory removed\n" );
+					} catch (UnsupportedOperationException e) {
+					    System.out.println( cmd_arr[1] + " not found.\n" );
+					}
+					
 				    break;
 
 				case "del":
-					subDir = mainDir.getFileSystem(cmd_arr[1]);
-					mainDir.remove(subDir);
+					try {
+					    subDir = mainDir.getFileSystem(cmd_arr[1]);
+						mainDir.remove(subDir);
+					    System.out.println( cmd_arr[1] + " has successfully been removed.\n" );
+					} catch (UnsupportedOperationException e) {
+					    System.out.println( cmd_arr[1] + " not found.\n" );
+					}
+					
 
 					// if( cmd_arr[1].contains(".txt") ) {
 					// 	subFile = mainDir.getFileSystem(cmd_arr[1]);
@@ -72,27 +88,46 @@ public class FileListGenerator {
 					break;
 
 				case "size":
-					if( cmd_arr[1].contains(".txt") ) {
-						subFile = mainDir.getFileSystem(cmd_arr[1]);
-						System.out.println( subFile.getSize() );
-					} else {
-						subDir = rootDir.getFileSystem(cmd_arr[1]);
+					try {
+					    subDir = mainDir.getFileSystem(cmd_arr[1]);
 						subDir.printSize();
+					} catch (UnsupportedOperationException e) {
+					    System.out.println( cmd_arr[1] + " not found.\n" );
 					}
+					
+					// if( cmd_arr[1].contains(".txt") ) {
+					// 	subFile = mainDir.getFileSystem(cmd_arr[1]);
+					// 	System.out.println( subFile.getSize() );
+					// } else {
+					// 	subDir = rootDir.getFileSystem(cmd_arr[1]);
+					// 	subDir.printSize();
+					// }
 					break;
 
 				case "ls":
-					if( (cmd_arr.length == 2) && (cmd_arr[1].contains(".txt")) ) {
-						subFile = mainDir.getFileSystem(cmd_arr[1]);
-						System.out.println( subFile.getName() );
-						System.out.println( subFile.getSize() );
-					} else if( cmd_arr.length == 2 ) {
-						subDir = mainDir.getFileSystem(cmd_arr[1]);
-						tempShowAll = new FileIterator(subDir);
-						tempShowAll.getFileList();
+					if( cmd_arr.length == 2 ) {
+						try {
+						    subDir = mainDir.getFileSystem(cmd_arr[1]);
+							tempShowAll = new FileIterator(subDir);
+							tempShowAll.getFileList();
+						} catch (UnsupportedOperationException e) {
+						    System.out.println( cmd_arr[1] + " not found.\n" );
+						}
 					} else {
-						showAll.getFileList();
+					    showAll.getFileList();
 					}
+
+					// if( (cmd_arr.length == 2) && (cmd_arr[1].contains(".txt")) ) {
+					// 	subFile = mainDir.getFileSystem(cmd_arr[1]);
+					// 	System.out.println( subFile.getName() );
+					// 	System.out.println( subFile.getSize() );
+					// } else if( cmd_arr.length == 2 ) {
+					// 	subDir = mainDir.getFileSystem(cmd_arr[1]);
+					// 	tempShowAll = new FileIterator(subDir);
+					// 	tempShowAll.getFileList();
+					// } else {
+					// 	showAll.getFileList();
+					// }
 					break;
 
 			    case "exit":
