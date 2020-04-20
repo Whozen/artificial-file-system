@@ -30,21 +30,6 @@ public class Directories extends FileSystem {
 		fileSystems.remove(newFileSystem);
 		
 	}
-	
-
-	public void removeAll() {
-		
-		Iterator fileIterator = fileSystems.iterator();
-		
-		while(fileIterator.hasNext()) { 
-			
-			FileSystem fileInfo = (FileSystem) fileIterator.next();
-			
-			fileSystems.remove(fileInfo);
-			
-		}
-		
-	}
 
 
 	public FileSystem getFileSystem(String name) {
@@ -82,6 +67,7 @@ public class Directories extends FileSystem {
 		}
 		
 	}
+
 
 
 	public void printSize(){

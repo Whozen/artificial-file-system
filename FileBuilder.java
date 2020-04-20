@@ -13,7 +13,7 @@ public class FileBuilder implements FileBuilderFactory
   
     public FileBuilder()  
     { 
-        this.mainDir = new Directories("Main");
+        this.mainDir = new Directories("Root");
         this.rootDir = this.mainDir;
         this.showAll = new FileIterator(this.mainDir);
         this.path = new FileSystem[10];
@@ -40,39 +40,47 @@ public class FileBuilder implements FileBuilderFactory
 
 
     //Remove a directory in the current directory
-    public void rmdir(String fileName)  
-    {   
-        try {
-            this.subDir = this.mainDir.getFileSystem(fileName);
-            this.mainDir.remove(this.subDir);
+    // public void rmdir(String fileName)  
+    // {   
+    //     try {
+    //         this.subDir = this.mainDir.getFileSystem(fileName);
+    //         this.mainDir.remove(this.subDir);
 
-            System.out.println( fileName + " Directory removed\n" );
-        } catch (UnsupportedOperationException e) {
-            System.out.println( fileName + " not found.\n" );
-        }
-    } 
+    //         System.out.println( fileName + " Directory removed\n" );
+    //     } catch (UnsupportedOperationException e) {
+    //         System.out.println( fileName + " not found.\n" );
+    //     }
+    // } 
     
 
     //Remove a file or directory in the current directory
     public void del(String fileName)  
-    {
-        if( fileName.contains(".txt") ) {
-            try {
-                this.subFile = this.mainDir.getFileSystem(fileName);
-                this.mainDir.remove(this.subFile);
-                System.out.println( fileName + " has successfully been removed.\n" );
-            } catch (UnsupportedOperationException e) {
-                System.out.println( fileName + " not found.\n" );
-            }
-        } else {
-            try {
-                this.subDir = this.rootDir.getFileSystem(fileName);
-                this.subDir.removeAll();
-                System.out.println( fileName + " has successfully been removed.\n" );
-            } catch (UnsupportedOperationException e) {
-                System.out.println( fileName + " not found.\n" );
-            }
+    {   
+        try {
+            this.subFile = this.mainDir.getFileSystem(fileName);
+            this.mainDir.remove(this.subFile);
+            System.out.println( fileName + " has successfully been removed.\n" );
+        } catch (UnsupportedOperationException e) {
+            System.out.println( fileName + " not found.\n" );
         }
+
+        // if( fileName.contains(".txt") ) {
+        //     try {
+        //         this.subFile = this.mainDir.getFileSystem(fileName);
+        //         this.mainDir.remove(this.subFile);
+        //         System.out.println( fileName + " has successfully been removed.\n" );
+        //     } catch (UnsupportedOperationException e) {
+        //         System.out.println( fileName + " not found.\n" );
+        //     }
+        // } else {
+        //     try {
+        //         this.subDir = this.mainDir.getFileSystem(fileName);
+        //         this.mainDir.remove(this.subDir);
+        //         System.out.println( fileName + " has successfully been removed.\n" );
+        //     } catch (UnsupportedOperationException e) {
+        //         System.out.println( fileName + " not found.\n" );
+        //     }
+        // }
     }
 
 
@@ -129,6 +137,9 @@ public class FileBuilder implements FileBuilderFactory
             }
         } else if( fileName != null ) {
             try {
+                // subDir = mainDir.getFileSystem(fileName);
+                // subDir.displayFileContents();
+
                 this.subDir = this.rootDir.getFileSystem(fileName);
                 this.tempShowAll = new FileIterator(this.subDir);
                 this.tempShowAll.getFileList();
@@ -137,6 +148,8 @@ public class FileBuilder implements FileBuilderFactory
             }
         } else {
             this.showAll.getFileList();
+
+            //mainDir.displayFileContents();
         }
     }
 

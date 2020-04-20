@@ -1,10 +1,26 @@
-class ScriptOne { 
-    private FileBuilderFactory fileBuilder; 
+class ScriptOne {
+
+    // Old non singleton code
+    // private FileBuilderFactory fileBuilder; 
   
-    public ScriptOne(FileBuilderFactory fileBuilder) 
-    { 
-        this.fileBuilder = fileBuilder; 
-    } 
+    // public ScriptOne(FileBuilderFactory fileBuilder) 
+    // { 
+    //     this.fileBuilder = fileBuilder; 
+    // } 
+    
+    private static ScriptOne instance = new ScriptOne();
+    
+    private static FileBuilderFactory fileBuilder;
+    
+    //Cannot be initialized
+    private ScriptOne(){}
+
+    //Get the only object available
+    public static ScriptOne getInstance(FileBuilderFactory fb){
+        fileBuilder = fb; 
+        return instance;
+    }
+
   
     public void runScriptOne() 
     {

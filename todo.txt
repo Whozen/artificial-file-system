@@ -1,0 +1,4 @@
+1) del directory function (Done)
+2) size directory function
+3) ls function
+4) singleton confirmation (Done)

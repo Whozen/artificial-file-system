@@ -59,13 +59,16 @@ public class FileListGenerator {
 				    break;
 
 				case "del":
-					if( cmd_arr[1].contains(".txt") ) {
-						subFile = mainDir.getFileSystem(cmd_arr[1]);
-						mainDir.remove(subFile);
-					} else {
-						subDir = rootDir.getFileSystem(cmd_arr[1]);
-						subDir.removeAll();
-					}
+					subDir = mainDir.getFileSystem(cmd_arr[1]);
+					mainDir.remove(subDir);
+
+					// if( cmd_arr[1].contains(".txt") ) {
+					// 	subFile = mainDir.getFileSystem(cmd_arr[1]);
+					// 	mainDir.remove(subFile);
+					// } else {
+					// 	// subDir = rootDir.getFileSystem(cmd_arr[1]);
+					// 	// subDir.removeAll();
+					// }
 					break;
 
 				case "size":
@@ -84,7 +87,7 @@ public class FileListGenerator {
 						System.out.println( subFile.getName() );
 						System.out.println( subFile.getSize() );
 					} else if( cmd_arr.length == 2 ) {
-						subDir = rootDir.getFileSystem(cmd_arr[1]);
+						subDir = mainDir.getFileSystem(cmd_arr[1]);
 						tempShowAll = new FileIterator(subDir);
 						tempShowAll.getFileList();
 					} else {
@@ -101,35 +104,6 @@ public class FileListGenerator {
 			    	break;
 			}	
 		}
-		
-
-		// FileSystem appDoc = new Directories("App");
-		
-		// FileSystem courseDoc = new Directories("Course");
-		
-		// FileSystem codeDoc = new Directories("Code");
-
-		// FileSystem cs41Doc = new Directories("CSci41");
-
-		// FileSystem cs250Doc = new Directories("CSci250");
-		
-		// // Composite that holds individual groups of songs
-		// // This holds Songs plus a Directories with Songs
-		
-		// mainDir.add(appDoc);
-		// mainDir.add(courseDoc);
-		// mainDir.add(codeDoc);
-
-		// courseDoc.add(cs41Doc);
-		// courseDoc.add(cs250Doc);
-
-		// cs41Doc.add(new File("roster.txt", 30));
-		// cs41Doc.add(new File("grade.txt", 40));
-		// cs41Doc.add(new File("exam.txt", 50));
-
-		// cs250Doc.add(new File("project1.txt", 20));
-		// cs250Doc.add(new File("project2.txt", 40));
-		// cs250Doc.add(new File("quiz1.txt", 30));
 		
 	}
 	
