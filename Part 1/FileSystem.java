@@ -1,14 +1,5 @@
 public abstract class FileSystem {
-	public void accept(Visitor visitor) {}
-
-	public void accept(Visitor visitor, FileSystem fs) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void accept(Visitor visitor, int newSize) {
-		
-	}
-
+	
 	// This allows me to add components
 	public void add(FileSystem newFileSystem) {
 		throw new UnsupportedOperationException();
@@ -37,10 +28,6 @@ public abstract class FileSystem {
 		throw new UnsupportedOperationException();
 	}
 
-	public void reSize() {
-		throw new UnsupportedOperationException();
-	}
-
 
 	// This allows me to retrieve band names
 	public void printSize() {
@@ -53,5 +40,6 @@ public abstract class FileSystem {
 	// specific to the Song or SongGroup
 	public void displayFileInfo() {
 		throw new UnsupportedOperationException();
-	} 
+	}
+	
 }
