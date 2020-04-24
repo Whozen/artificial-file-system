@@ -16,5 +16,5 @@ public interface FileBuilderFactory
 
     public void ls(String fileName); 
 
-    public int exit(); 
+    public void exit(); 
 } 

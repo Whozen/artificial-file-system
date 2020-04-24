@@ -146,13 +146,13 @@ public class FileBuilder implements FileBuilderFactory {
 
 
     //Exit the program
-    public int exit() {
+    public void exit() {
         for(int i = 0; i < this.deletedFileSystems.size(); i++) {   
             this.delFile = this.deletedFileSystems.get(i);
             this.mainDir = this.myPath.get(0);
             this.mainDir.accept(this.exitVisitor,this.delFile);
         }
         System.out.println( "Exiting the system\n" );
-        return 0;
+        //return 0;
     }
 } 

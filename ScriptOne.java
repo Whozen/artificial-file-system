@@ -15,21 +15,22 @@ class ScriptOne {
     //Declate a FileBuilderFactory object
     private static FileBuilderFactory fileBuilder;
 
-    
+    private static DirectoryTreeDisplay tree;
+
     //Cannot be initialized
     private ScriptOne(){}
 
-
     //Get the only object available
     public static ScriptOne getInstance(FileBuilderFactory fb){
-        fileBuilder = fb; 
+        fileBuilder = fb;
+        //tree = new DirectoryBrowserAdapter(fb);
+        tree = TreeConfiguration.getDecoratedTree(fb);
         return instance;
     }
 
     
     //Run the script1 commands
-    public void runScriptOne() 
-    {
+    public void runScriptOne() {
         this.fileBuilder.mkdir("App");
         this.fileBuilder.mkdir("Course");
         this.fileBuilder.mkdir("Code");
@@ -57,4 +58,10 @@ class ScriptOne {
         this.fileBuilder.size("Course");
         this.fileBuilder.exit();
     } 
+
+
+    //Display the tree file structure
+    public void displayTree() {
+        this.tree.display();
+    }
 }

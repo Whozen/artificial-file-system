@@ -9,6 +9,7 @@ public class Enter {
 
         //Run script One
         runner.runScriptOne();
+        runner.displayTree();
     }  
    
 } 
