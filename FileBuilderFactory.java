@@ -12,6 +12,8 @@ public interface FileBuilderFactory
 
     public void size(String fileName);
 
+    public void resize(String fileName, int newSize);
+
     public void ls(String fileName); 
 
     public int exit(); 

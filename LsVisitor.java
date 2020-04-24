@@ -4,6 +4,10 @@ public class LsVisitor implements Visitor {
         directory.displayFileInfo();
     }
 
+    public void visit(Directory directory, FileSystem fs, int real) { 
+        throw new UnsupportedOperationException();
+    }
+
     public void visit(Directory directory, FileSystem fs) {
     	throw new UnsupportedOperationException();
     }

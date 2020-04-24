@@ -6,21 +6,27 @@ public class FileBuilder implements FileBuilderFactory {
     private FileSystem subDir;
     private FileSystem subFile;
     private FileSystem rootDir;
+    private FileSystem delFile;
     private FileIterator showAll;
     private FileIterator tempShowAll;
 
-    SizeVisitor sVisit = new SizeVisitor();
+    private Visitor sizeVisit = new SizeVisitor();
 
-    ResizeVisitor resVisit = new ResizeVisitor();
+    private Visitor resVisit = new ResizeVisitor();
     //firstFile.accept(resVisit, 20);
 
-    LsVisitor lsVisit = new LsVisitor();
+    private Visitor lsVisit = new LsVisitor();
     //mainDir.accept(lsVisit);
 
-    DeleteVisitor rVisit = new DeleteVisitor();
-    //mainDir.accept(rVisit, appDir);
+    private Visitor delVisit = new DeleteVisitor();
+    //mainDir.accept(delVisit, appDir);
+
+    private Visitor delProxy = new ProxyDelete();
+
+    private Visitor exitVisitor = new ExitVisitor();
 
     private ArrayList<FileSystem> myPath = new ArrayList<FileSystem>();
+    private ArrayList<FileSystem> deletedFileSystems = new ArrayList<FileSystem>();
     //private FileSystem[] path;
     
     private int pathPointer;
@@ -55,60 +61,37 @@ public class FileBuilder implements FileBuilderFactory {
     public void del(String fileName) {   
         try {
             this.subFile = this.mainDir.getFileSystem(fileName);
-            this.mainDir.accept(rVisit, subFile);
+            //this.mainDir.accept(delVisit, subFile);
+            this.deletedFileSystems.add(this.subFile);
+            this.mainDir.accept(this.delProxy, this.subFile);
+            
+            
             // this.mainDir.remove(this.subFile);
             // System.out.println( "Del: " + fileName + " has successfully been removed.\n" );
         } catch (UnsupportedOperationException e) {
             System.out.println( "Del:" + fileName + " not found.\n" );
         }
-
-        // if( fileName.contains(".txt") ) {
-        //     try {
-        //         this.subFile = this.mainDir.getFileSystem(fileName);
-        //         this.mainDir.remove(this.subFile);
-        //         System.out.println( fileName + " has successfully been removed.\n" );
-        //     } catch (UnsupportedOperationException e) {
-        //         System.out.println( fileName + " not found.\n" );
-        //     }
-        // } else {
-        //     try {
-        //         this.subDir = this.mainDir.getFileSystem(fileName);
-        //         this.mainDir.remove(this.subDir);
-        //         System.out.println( fileName + " has successfully been removed.\n" );
-        //     } catch (UnsupportedOperationException e) {
-        //         System.out.println( fileName + " not found.\n" );
-        //     }
-        // }
     }
 
 
     //Get size of file or directory
     public void size(String fileName) {
         try {
-            // this.subDir = this.mainDir.getFileSystem(fileName);
-            // this.subDir.printSize();
-            mainDir.accept(sVisit);
+            this.subDir = this.mainDir.getFileSystem(fileName);
+            this.subDir.accept(this.sizeVisit);
         } catch (UnsupportedOperationException e) {
             System.out.println( "Size: " + fileName + " not found.\n" );
         }
+    }
 
 
-        // if( fileName.contains(".txt") ) {
-        //     try {
-        //         this.subFile = this.mainDir.getFileSystem(fileName);
-        //         System.out.println( this.subFile.getSize() + "\n");
-        //     } catch (UnsupportedOperationException e) {
-        //         System.out.println( fileName + " not found.\n" );
-        //     } 
-        // } else {
-        //     try {
-        //         System.out.println( "Directory has no size.\n" );
-        //         // this.subDir = this.rootDir.getFileSystem(fileName);
-        //         // this.subDir.printSize();
-        //     } catch (UnsupportedOperationException e) {
-        //         System.out.println( fileName + " not found.\n" );
-        //     }
-        // }
+    public void resize(String fileName, int newSize) {
+        try {
+            this.subFile = this.mainDir.getFileSystem(fileName);
+            this.subFile.accept(this.resVisit, newSize);
+        } catch (UnsupportedOperationException e) {
+            System.out.println( "Size: " + fileName + " not found.\n" );
+        }
     }
 
 
@@ -131,8 +114,8 @@ public class FileBuilder implements FileBuilderFactory {
             System.out.println("Cd: Directory Changed to " + fileName + '\n');
         }
         System.out.println( "Current Path:" );
-        for (int i = 0; i < myPath.size(); i++) {
-            System.out.print( myPath.get(i).getName() + "/" );
+        for (int i = 0; i < this.myPath.size(); i++) {
+            System.out.print( this.myPath.get(i).getName() + "/" );
         }
         System.out.println("\n");
     }
@@ -141,8 +124,8 @@ public class FileBuilder implements FileBuilderFactory {
     //Display all the contents in the Directory
     public void ls(String fileName) {
         System.out.println( "Current Path:" );
-        for (int i = 0; i < myPath.size(); i++) {
-            System.out.print( myPath.get(i).getName() + "/" );
+        for (int i = 0; i < this.myPath.size(); i++) {
+            System.out.print( this.myPath.get(i).getName() + "/" );
         }
         System.out.println("\n");
 
@@ -159,36 +142,16 @@ public class FileBuilder implements FileBuilderFactory {
             this.showAll.getFileList();
         }
         mainDir.accept(lsVisit);
-
-        // if( (fileName != null) && (fileName.contains(".txt")) ) {
-        //     try {
-        //         this.subFile = this.mainDir.getFileSystem(fileName);
-        //         System.out.println( this.subFile.getName() );
-        //         System.out.println( this.subFile.getSize() );
-        //     } catch (UnsupportedOperationException e) {
-        //         System.out.println( fileName + " not found.\n" );
-        //     }
-        // } else if( fileName != null ) {
-        //     try {
-        //         // subDir = mainDir.getFileSystem(fileName);
-        //         // subDir.displayFileContents();
-
-        //         this.subDir = this.rootDir.getFileSystem(fileName);
-        //         this.tempShowAll = new FileIterator(this.subDir);
-        //         this.tempShowAll.getFileList();
-        //     } catch (UnsupportedOperationException e) {
-        //         System.out.println( fileName + " not found.\n" );
-        //     }
-        // } else {
-        //     this.showAll.getFileList();
-
-        //     //mainDir.displayFileContents();
-        // }
     }
 
 
     //Exit the program
     public int exit() {
+        for(int i = 0; i < this.deletedFileSystems.size(); i++) {   
+            this.delFile = this.deletedFileSystems.get(i);
+            this.mainDir = this.myPath.get(0);
+            this.mainDir.accept(this.exitVisitor,this.delFile);
+        }
         System.out.println( "Exiting the system\n" );
         return 0;
     }

@@ -4,6 +4,7 @@ import java.util.Iterator;
 public class Directory extends FileSystem { 
     ArrayList fileSystems = new ArrayList();
     String directoryName;
+    int delStatus = 0;
     
     //Constructor
     public Directory(String newDirectoryName) {
@@ -16,7 +17,16 @@ public class Directory extends FileSystem {
 
     public void accept(Visitor visitor, FileSystem fs) { 
         visitor.visit(this, fs); 
-    } 
+    }
+
+    //Get File Name
+    public int getDelStatus() { 
+        return delStatus;
+    }
+
+    public void setDelStatus(int newDelStatus) { 
+        delStatus = newDelStatus;
+    }
     
     //Get Directory Name
     public String getName() { return directoryName; }
@@ -30,19 +40,26 @@ public class Directory extends FileSystem {
     }
     
     //Delete the FileSystem passed from parameter from the current FileSystem
-    public void remove(FileSystem newFileSystem) {
-        fileSystems.remove(newFileSystem);
-        System.out.println(newFileSystem.getName() + " deleted\n"); 
+    public void remove(FileSystem newFileSystem, int real) {
+        if(real == 1) {
+            fileSystems.remove(newFileSystem);
+            System.out.println(newFileSystem.getName() + " deleted for real\n");
+        } else {
+            newFileSystem.setDelStatus(1);
+            System.out.println(newFileSystem.getName() + " deleted\n");
+            //System.out.println(newFileSystem.getDelStatus());
+        }
     }
 
     //Iterate through the current FileSystem to get the FileSystem with name given in parameter
-    public FileSystem getFileSystem(String name) {  
+    public FileSystem getFileSystem(String name) { 
         Iterator fileIterator = fileSystems.iterator();
         
         while(fileIterator.hasNext()) { 
             FileSystem fileInfo = (FileSystem)fileIterator.next();
             String fName = fileInfo.getName();
-            if( fName.equals(name) ) {
+            int fStatus = fileInfo.getDelStatus();
+            if( (fName.equals(name)) && ( fStatus== 0) ) {
                 return fileInfo;
             }
         }

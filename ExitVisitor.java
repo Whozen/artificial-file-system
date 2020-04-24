@@ -1,7 +1,8 @@
-public class SizeVisitor implements Visitor { 
-   
+public class ExitVisitor implements Visitor { 
+    private DeleteVisitor delVisitor;
+
     public void visit(Directory directory) { 
-        directory.printSize();
+        throw new UnsupportedOperationException();
     }
 
     public void visit(Directory directory, FileSystem fs, int real) { 
@@ -9,11 +10,15 @@ public class SizeVisitor implements Visitor {
     }
 
     public void visit(Directory directory, FileSystem fs) {
-    	throw new UnsupportedOperationException();
+    	if(delVisitor == null) {
+            delVisitor = new DeleteVisitor();
+        }
+
+        delVisitor.visit(directory, fs, 1);
     }
 
     public void visit(File file) { 
-        file.printSize();
+        throw new UnsupportedOperationException();
     }
 
     public void visit(File file, int newSize) { 

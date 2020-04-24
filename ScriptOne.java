@@ -47,6 +47,7 @@ class ScriptOne {
         this.fileBuilder.create("project1.txt", 20);
         this.fileBuilder.create("project2.txt", 40);
         this.fileBuilder.create("quiz1.txt", 30);
+        this.fileBuilder.resize("quiz1.txt", 50);
         this.fileBuilder.size("quiz1.txt");
         this.fileBuilder.cd("..");
         this.fileBuilder.size("CSci41");

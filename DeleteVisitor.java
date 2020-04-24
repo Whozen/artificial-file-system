@@ -5,7 +5,11 @@ public class DeleteVisitor implements Visitor {
     } 
 
     public void visit(Directory directory, FileSystem fs) { 
-        directory.remove(fs);
+        throw new UnsupportedOperationException();
+    }
+
+    public void visit(Directory directory, FileSystem fs, int real) { 
+        directory.remove(fs, real);
     } 
 
     public void visit(File file) { 

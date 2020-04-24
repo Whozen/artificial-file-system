@@ -6,7 +6,15 @@ public abstract class FileSystem {
 	}
 
 	public void accept(Visitor visitor, int newSize) {
-		
+		throw new UnsupportedOperationException();
+	}
+
+	public int getDelStatus() { 
+	    throw new UnsupportedOperationException();
+	}
+
+	public void setDelStatus(int newDelStatus) { 
+	    throw new UnsupportedOperationException();
 	}
 
 	// This allows me to add components

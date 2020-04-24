@@ -1,6 +1,7 @@
 public class File extends FileSystem { 
     private String fileName;
     private int fileSize;
+    private int delStatus = 0;
    
     //Constructor
     public File(String newFileName, int newFileSize){
@@ -19,6 +20,16 @@ public class File extends FileSystem {
     //Get File Name
     public String getName() { 
         return fileName;
+    }
+
+    //Get File Name
+    public int getDelStatus() { 
+        return delStatus;
+    }
+
+    //Get File Name
+    public void setDelStatus(int newDelStatus) { 
+        delStatus = newDelStatus;
     }
 
     //Resize
