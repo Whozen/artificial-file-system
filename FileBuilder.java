@@ -10,6 +10,8 @@ public class FileBuilder implements FileBuilderFactory {
     private FileIterator showAll;
     private FileIterator tempShowAll;
 
+    private Subject subj = new Subject(this);
+
     private Visitor sizeVisit = new SizeVisitor();
 
     private Visitor resVisit = new ResizeVisitor();
@@ -89,6 +91,8 @@ public class FileBuilder implements FileBuilderFactory {
         try {
             this.subFile = this.mainDir.getFileSystem(fileName);
             this.subFile.accept(this.resVisit, newSize);
+
+            this.subj.execute();
         } catch (UnsupportedOperationException e) {
             System.out.println( "Size: " + fileName + " not found.\n" );
         }
@@ -139,7 +143,8 @@ public class FileBuilder implements FileBuilderFactory {
                 System.out.println( fileName + " not found.\n" );
             }
         } else {
-            this.showAll.getFileList();
+            //this.showAll.getFileList();
+            this.myPath.get(0).accept(lsVisit);
         }
         mainDir.accept(lsVisit);
     }

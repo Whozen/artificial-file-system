@@ -8,5 +8,6 @@ public class DirectoryBrowserAdapter implements DirectoryTreeDisplay {
 
 	public void display() {
 		this.fileBuilder.ls(null);
+		//System.out.println("Hi");
 	}
 }

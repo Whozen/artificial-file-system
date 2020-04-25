@@ -10,7 +10,6 @@ class ScriptOne {
 
     //Get instance of ScriptOne class
     private static ScriptOne instance = new ScriptOne();
-    
 
     //Declate a FileBuilderFactory object
     private static FileBuilderFactory fileBuilder;
