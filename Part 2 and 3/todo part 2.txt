@@ -1,0 +1,2 @@
+1) Ls not working properly (done)
+2) Integrate resize (done)

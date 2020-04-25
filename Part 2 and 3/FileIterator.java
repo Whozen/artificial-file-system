@@ -2,7 +2,7 @@ public class FileIterator{
 	
 	FileSystem fileList;
 	
-	//Constructor
+	//Initialize the object with FileSystem passed as parameter
 	public FileIterator(FileSystem newFileList){
 		fileList = newFileList;
 	}

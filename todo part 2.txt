@@ -1,2 +1,0 @@
-1) Ls not working properly
-2) Integrate resize (done)

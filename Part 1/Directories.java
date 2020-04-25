@@ -4,7 +4,6 @@ import java.util.Iterator;
 public class Directories extends FileSystem {
 	
 	ArrayList fileSystems = new ArrayList();
-	
 	String directoryName;
 	
 	//Constructor
@@ -18,15 +17,18 @@ public class Directories extends FileSystem {
 	//Get Directory Size
 	public int getSize() { return 100; }
 
-	//Add new FileSystem passed from parameter to the current FileSystem
+
+    //Add new FileSystem passed from parameter to the current Directory
 	public void add(FileSystem newFileSystem) {
 		fileSystems.add(newFileSystem);
 	}
+	
 	
 	//Delete the FileSystem passed from parameter from the current FileSystem
 	public void remove(FileSystem newFileSystem) {
 		fileSystems.remove(newFileSystem);
 	}
+
 
 	//Iterate through the current FileSystem to get the FileSystem with name given in parameter
 	public FileSystem getFileSystem(String name) {	
@@ -43,14 +45,17 @@ public class Directories extends FileSystem {
 		throw new UnsupportedOperationException();
 	}
 	
+
 	//Iterate through the current FileSystem to display the FileSystems in it
 	public void displayFileInfo() {
-		System.out.println(directoryName + "\n");		
+		System.out.println("Ls: " + directoryName + "\n");		
 		Iterator fileIterator = fileSystems.iterator();
 	
-		while(fileIterator.hasNext()) { 
+		while(fileIterator.hasNext()) {
 			FileSystem fileInfo = (FileSystem) fileIterator.next();
-			fileInfo.displayFileInfo();
+			if(fileInfo instanceof File) {
+				fileInfo.displayFileInfo();
+			}
 		}
 	}
 

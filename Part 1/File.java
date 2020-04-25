@@ -19,7 +19,7 @@ public class File extends FileSystem {
 		return fileSize;
 	}
 
-	//Get File Size
+	//Display File Size
 	public void printSize() {
 		System.out.println(getName() + " of size " + getSize() + "\n");
 	}
