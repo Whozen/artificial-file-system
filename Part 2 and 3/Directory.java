@@ -2,9 +2,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Directory extends FileSystem { 
-    
+    //Initialize an array to store all the FileSystems that will be added to the Directory
     ArrayList fileSystems = new ArrayList();
     String directoryName;
+
+    //This indicates the deletion status of the Directory. 
+    //If it is set to zero, then the Directory has not been set to be deleted.
+    //IF it is set to one, then it has been defered to be deleted.
     int delStatus = 0;
     
     //Constructor
@@ -13,25 +17,27 @@ public class Directory extends FileSystem {
     }
 
 
-    //Accept a Visitor as parameter
+    //Accept a Visitor as parameter and call the Visitors visit function. Pass self instance 
+    //as the parameter
     public void accept(Visitor visitor) { 
         visitor.visit(this); 
     } 
 
 
-    //Accept a Visitor and FileSystem as a paramter
+    //Accept a Visitor and FileSystem as a paramter. . Pass self instance and FileSystem
+    //as the parameter
     public void accept(Visitor visitor, FileSystem fs) { 
         visitor.visit(this, fs); 
     }
 
 
-    //Get Directory Name
+    //Return Directory Name
     public String getName() { 
         return directoryName; 
     }
 
 
-    //Get Directory delete status
+    //Return Directory delete status
     public int getDelStatus() { 
         return delStatus;
     }
@@ -66,6 +72,7 @@ public class Directory extends FileSystem {
 
 
     //Iterate through the current Directory to get the FileSystem with name given in parameter
+    //It checks all the FileSystems in it by its name and its deletion status if it is 0
     public FileSystem getFileSystem(String name) { 
         Iterator fileIterator = fileSystems.iterator();
         
@@ -83,6 +90,7 @@ public class Directory extends FileSystem {
     
 
     //Iterate through the current Directory to display the FileSystems in it
+    //It will call displayFileInfo function again for each FileSystem in it.
     public void displayFileInfo() {
         System.out.println(directoryName + "\n");       
         Iterator fileIterator = fileSystems.iterator();
@@ -94,7 +102,8 @@ public class Directory extends FileSystem {
     }
 
 
-    //Iterate through the current Directory to display the size of all the FileSystems in it
+    //Iterate through the current Directory to display the sizes of all the FileSystems in it
+    //It will call printSize function again for each FileSystem in it.
     public void printSize(){
         System.out.println("Size inside " + directoryName + "\n");  
 

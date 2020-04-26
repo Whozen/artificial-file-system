@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Directories extends FileSystem {
-	
+	//Initialize an array to store all the FileSystems that will be added to the Directory
 	ArrayList fileSystems = new ArrayList();
 	String directoryName;
 	
@@ -11,11 +11,10 @@ public class Directories extends FileSystem {
 		directoryName = newDirectoryName;
 	}
 	
-	//Get Directory Name
-	public String getName() { return directoryName; }
-
-	//Get Directory Size
-	public int getSize() { return 100; }
+	//Return Directory Name
+	public String getName() { 
+		return directoryName;
+	}
 
 
     //Add new FileSystem passed from parameter to the current Directory
@@ -47,6 +46,7 @@ public class Directories extends FileSystem {
 	
 
 	//Iterate through the current FileSystem to display the FileSystems in it
+	//It will call displayFileInfo function again for each FileSystem in it.
 	public void displayFileInfo() {
 		System.out.println("Ls: " + directoryName + "\n");		
 		Iterator fileIterator = fileSystems.iterator();
@@ -61,6 +61,7 @@ public class Directories extends FileSystem {
 
 
 	//Iterate through the current FileSystem to display the size of all the FileSystems in it
+	//It will call printSize function again for each FileSystem in it
 	public void printSize(){
 		System.out.println("Size inside " + directoryName + "\n");	
 

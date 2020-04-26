@@ -9,26 +9,15 @@ public class CommandExecutor {
     private String[] input;
     
 
-    /*
-    Function Name:  getInstance
-    Input Parameter:FileBuilderFactory
-    Return:         CommandExecuter instance
-    Description:    This function assigns the filebuilder object instance to the object classes
-                    own object and returns the instance of this class
-    */
+    //This function assigns the filebuilder object instance to the object classes own 
+    //object and returns the instance of this class
     public static CommandExecutor getInstance(FileBuilderFactory fb){
         fileBuilder = fb; 
         return instance;
     }
 
 
-    /*
-    Function Name:  runCommandExecutor
-    Input Parameter:String command which consists of a single command and arguments
-    Return:         void
-    Description:    This function takes a single command as input and calls the method in FileSystem
-                    accordingly.
-    */
+    //This function takes a single command as input and calls the method in FileSystem accordingly.
     public void runCommandExecutor(String command) {
         input = command.split(" ");
 

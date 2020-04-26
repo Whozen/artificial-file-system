@@ -1,6 +1,6 @@
 public class SizeVisitor implements Visitor { 
     
-    //Call the function printSize from the FileSystem file passed in the parameter
+    //Call the function printSize from the Directory passed in the parameter
     public void visit(Directory directory) { 
         directory.printSize();
     }
@@ -13,6 +13,7 @@ public class SizeVisitor implements Visitor {
     	throw new UnsupportedOperationException();
     }
 
+    //Call the function printSize from the File passed in the parameter
     public void visit(File file) { 
         file.printSize();
     }

@@ -6,7 +6,7 @@ public class TreeDecorator implements DirectoryTreeDisplay {
 	}
 
 	//Initialize the DirectoryTreeDisplay for decorating the File Structure Heirarcy with the 
-	//DirectoryBrowserAdapter object passed as parameter
+	//DirectoryTreeDisplay object passed as parameter
 	public TreeDecorator(DirectoryTreeDisplay dtd) { 
 		this.dirDisplay = dtd;
 	}
